@@ -20,7 +20,7 @@ deployment procedures and its resilience against infrastructure disruptions, whi
 
 
 {{< callout >}}
-Outages Extension is currently available as part of the **LocalStack Enterprise** plan. If you'd like to try it out, please [contact us](https://www.localstack.cloud/demo) to request access.
+Outages Extension is currently available as part of the LocalStack Enterprise plan. If you'd like to try it out, please [contact us](https://www.localstack.cloud/demo) to request access.
 {{< /callout >}}
 
 ### Prerequisites
