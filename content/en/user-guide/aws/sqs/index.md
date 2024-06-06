@@ -1,9 +1,10 @@
 ---
 title: "Simple Queue Service (SQS)"
-description: >
-  Get started with Simple Queue Service (SQS) on LocalStack
+description: Get started with Simple Queue Service (SQS) on LocalStack
 aliases:
-  - /aws/sqs/
+- /aws/sqs/
+persistence: supported
+
 ---
 
 ## Introduction
@@ -287,11 +288,11 @@ You can enable this behavior in LocalStack by setting the `SQS_ENABLE_MESSAGE_RE
 In AWS, valid values for message retention range from 60 (1 minute) to 1,209,600 (14 days).
 In LocalStack, we do not put constraints on the value which can be helpful for test scenarios.
 
-{{<alert title="Note">}}
-Note that, if you enable this option, [persistence]({{< ref "persistence" >}}) or [cloud pods]({{<ref "user-guide/state-management/cloud-pods" >}}) for SQS may not work as expected.
+{{< callout >}}
+Note that, if you enable this option, [persistence]({{< ref "user-guide/state-management/persistence" >}}) or [cloud pods]({{<ref "user-guide/state-management/cloud-pods" >}}) for SQS may not work as expected.
 The reason is that, LocalStack does not adjust timestamps when restoring a state, so time appears to pass between LocalStack runs.
 Consequently, when you restart LocalStack after a period that is longer than the message retention period, LocalStack will remove all those messages when SQS starts.
-{{</alert>}}
+{{</callout>}}
 
 ### Disable CloudWatch Metrics Reporting
 
@@ -638,6 +639,6 @@ The following code snippets and sample applications provide practical examples o
 - [Messaging Processing application with SQS, DynamoDB, and Fargate](https://github.com/localstack/sqs-fargate-ddb-cdk-go)
 - [Serverless Transcription application using Transcribe, S3, Lambda, SQS, and SES](https://github.com/localstack/sample-transcribe-app)
 
-## Limitations
+## Current Limitations
 
 * Updating a queue's `MessageRetentionPeriod` currently has no effect on existing messages

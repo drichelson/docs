@@ -2,6 +2,8 @@
 title: "Route 53"
 linkTitle: "Route 53"
 description: Get started with Route 53 on LocalStack
+persistence: supported
+
 ---
 
 ## Introduction
@@ -60,11 +62,11 @@ The following output would be retrieved:
 
 ## DNS resolution
 
-LocalStack Pro supports the ability to respond to DNS queries for your Route53 domain names, with our [integrated DNS server]({{< ref "user-guide/tools/dns-server/" >}}).
+LocalStack Pro supports the ability to respond to DNS queries for your Route53 domain names, with our [integrated DNS server]({{< ref "user-guide/tools/dns-server" >}}).
 
-{{< alert title="Note" >}}
-To follow the example below you must [configure your system DNS to use the LocalStack DNS server]({{< ref "user-guide/tools/dns-server/#system-dns-configuration" >}}).
-{{< / alert >}}
+{{< callout >}}
+To follow the example below you must [configure your system DNS to use the LocalStack DNS server]({{< ref "user-guide/tools/dns-server#system-dns-configuration" >}}).
+{{< /callout >}}
 
 ### Query a DNS record
 

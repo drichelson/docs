@@ -62,7 +62,7 @@ $ awslocal qldb create-ledger --name vehicle-registration --permissions-mode ALL
 }
 ```
 
-{{< alert title="Note" >}}
+{{< callout >}}
 
 - Permissions mode – the following options are available in AWS:
 
@@ -81,7 +81,7 @@ To allow PartiQL
 commands, you must create IAM permissions policies for specific table resources and PartiQL actions,
 in addition to
 the `SendCommand` API permission for the ledger.
-{{< /alert >}}
+{{< /callout >}}
 
 The following command can be used directly to write PartiQL statements against a QLDB ledger:
 
@@ -327,7 +327,7 @@ The Resource Browser allows you to perform the following actions:
 - **Edit Ledger**: Edit the details of a specific ledger by clicking on the ledger name and then clicking on the **Edit Ledger** button.
 - **Delete Ledger**: Delete a specific ledger by selecting the ledger name and clicking on the **Actions** dropdown menu, then selecting **Remove Selected**.
 
-### Examples
+## Examples
 
 Interacting with Amazon QLDB (Quantum Ledger Database) is typically done using language-specific
 software

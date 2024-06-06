@@ -112,7 +112,7 @@ The screenshot below shows the triggered breakpoint with our `'Hello from LocalS
 
 ![Visual Studio Code debugging](vscode-debugging-py-1.png)
 
-#### Limitations
+#### Current Limitations
 
 Due to the ports published by the lambda container for the debugger, you can currently only debug one Lambda at a time. Due to the port publishing, multiple concurrently running lambda environments are not supported.
 
@@ -184,7 +184,7 @@ $ awslocal lambda create-function --function-name my-cool-local-function \
 
 We can quickly verify that it works by invoking it with a simple payload:
 
-{{< tabpane text=true persistLang=false >}}
+{{< tabpane text=true persist=false >}}
 {{% tab header="AWS CLI v1" lang="shell" %}}
 {{< command >}}
 $ awslocal lambda invoke --function-name my-cool-local-function \
@@ -394,7 +394,7 @@ Now to debug your lambda function, click on the `Debug` icon with
 `Attach to Remote Node.js` configuration selected, and then invoke your
 lambda function:
 
-{{< tabpane text=true persistLang=false >}}
+{{< tabpane text=true persist=false >}}
 {{% tab header="AWS CLI v1" lang="shell" %}}
 {{< command >}}
 $ awslocal lambda invoke --function-name func1 \

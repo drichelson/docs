@@ -64,9 +64,10 @@ $ awslocal elbv2 register-targets --targets Id=127.0.0.1,Port=5678,AvailabilityZ
     --target-group-arn $targetGroup
 {{< /command >}}
 
-{{< alert title="Note">}}
-Note that in some cases the `targets` parameter `Id` can be the `Gateway` address of the docker container. You can find the gateway address by running `docker inspect <container_id>`.
-{{< /alert >}}
+{{< callout >}}
+Note that in some cases the `targets` parameter `Id` can be the `Gateway` address of the docker container.
+You can find the gateway address by running `docker inspect <container_id>`.
+{{< /callout >}}
 
 ### Create a listener and a rule
 
@@ -143,7 +144,7 @@ The following code snippets and sample applications provide practical examples o
 
 - [Setting up Elastic Load Balancing (ELB) Application Load Balancers using LocalStack, deployed via the Serverless framework](https://docs.localstack.cloud/tutorials/elb-load-balancing/)
 
-## Limitations
+## Current Limitations
 
 - The Application Load Balancer currently supports only the `forward` and `redirect` action types.
 - When opting for Route53 CNAMEs to direct requests towards the ALBs, it's important to remember that explicit configuration of the `Host` header to match the resource record might be necessary while making calls.

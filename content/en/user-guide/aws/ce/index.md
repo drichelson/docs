@@ -12,10 +12,6 @@ Cost Explorer is a service provided by Amazon Web Services (AWS) that enables yo
 
 LocalStack allows you to use the Cost Explorer APIs in your local environment to create and manage cost category definition, cost anomaly monitors & subscriptions. The supported APIs are available on our [API coverage page](https://docs.localstack.cloud/references/coverage/coverage_ce/), which provides information on the extent of Cost Explorer's integration with LocalStack.
 
-{{< alert title="Note">}}
-LocalStack's Cost Explorer implementation cannot programmatically query your cost and usage data, or provide aggregated data such as total monthly costs or total daily usage. However, you can use the integrations to mock the Cost Explorer APIs and test your workflow locally.
-{{< /alert >}}
-
 ## Getting started
 
 This guide is designed for users new to Cost Explorer and assumes basic knowledge of the AWS CLI and our [`awslocal`](https://github.com/localstack/awscli-local) wrapper script.
@@ -153,7 +149,7 @@ The following output would be retrieved:
 
 ## Resource Browser
 
-The LocalStack Web Application provides a Resource Browser for managing cost category definitions for the Cost Explorer service. You can access the Resource Browser by opening the LocalStack Web Application in your browser, navigating to the Resources section, and then clicking on **Cost Explorer** under the **Storage** section.
+The LocalStack Web Application provides a Resource Browser for managing cost category definitions for the Cost Explorer service. You can access the Resource Browser by opening the LocalStack Web Application in your browser, navigating to the Resources section, and then clicking on **Cost Explorer** under the **Cloud Financial Management** section.
 
 <img src="cost-explorer-resource-browser.png" alt="Cost Explorer Resource Browser" title="Cost Explorer Resource Browser" width="900" />
 <br><br>
@@ -163,3 +159,7 @@ The Resource Browser allows you to perform the following actions:
 - **Create Cost Category definition**: Create a new Cost Category definition by clicking on the **Create** button and providing the required details.
 - **View Cost Category definition**: View the details of a Cost Category definition by clicking on the Cost Category definition.
 - **Delete Cost Category definition**: Delete a Cost Category definition by selecting on the Cost Categorty definition, and then clicking on the **Actions** button followed by **Remove Selected**.
+
+## Current Limitations
+
+LocalStack's Cost Explorer implementation cannot programmatically query your cost and usage data, or provide aggregated data such as total monthly costs or total daily usage. However, you can use the integrations to mock the Cost Explorer APIs and test your workflow locally.

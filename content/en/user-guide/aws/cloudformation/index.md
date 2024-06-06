@@ -104,9 +104,9 @@ The following code snippets and sample applications provide practical examples o
 
 ## Feature coverage
 
-{{< alert title="Note">}}
+{{< callout "tip" >}}
 We are continually enhancing our CloudFormation feature coverage by consistently introducing new resource types. Your feature requests assist us in determining the priority of resource additions. Feel free to contribute by [creating a new GitHub issue](https://github.com/localstack/localstack/issues/new?assignees=&labels=feature-request&template=feature-request.yml&title=feature+request%3A+%3Ctitle%3E).
-{{< /alert >}}
+{{< /callout >}}
 
 ### Features
 
@@ -127,9 +127,9 @@ We are continually enhancing our CloudFormation feature coverage by consistently
 | StackSets           | Partial                                         |
 | Intrinsic Functions | Partial                                         |
 
-{{< alert title="Note">}}
+{{< callout >}}
 Currently, support for `UPDATE` operations on resources is limited. Prefer stack re-creation over stack update at this time.
-{{< /alert >}}
+{{< /callout >}}
 
 ### Intrinsic Functions
 
@@ -153,9 +153,9 @@ Currently, support for `UPDATE` operations on resources is limited. Prefer stack
 
 ### Resources
 
-{{< alert title="Note">}}
+{{< callout >}}
 When utilizing the Community image, any resources within the stack that are not supported will be disregarded and won't be deployed.
-{{< /alert >}}
+{{< /callout >}}
 
 #### Community image
 
@@ -312,6 +312,7 @@ When utilizing the Community image, any resources within the stack that are not 
 | AWS::CloudFront::Function                       |      ✅ |      ✅ |      - |
 | AWS::CloudFront::OriginAccessControl            |      ✅ |      ✅ |      - |
 | AWS::CloudFront::OriginRequestPolicy            |      ✅ |      ✅ |      - |
+| AWS::Cloudfront::ResponseHeadersPolicy          |      ✅ |      ✅ |      - |
 | AWS::CloudTrail::Trail                          |      ✅ |      ✅ |      - |
 | AWS::Cognito::IdentityPool                      |      ✅ |      ✅ |      - |
 | AWS::Cognito::IdentityPoolRoleAttachment        |      ✅ |      ✅ |      - |
@@ -340,7 +341,9 @@ When utilizing the Community image, any resources within the stack that are not 
 | AWS::ECS::ClusterCapacityProviderAssociations   |      ✅ |      ✅ |      - |
 | AWS::ECS::Service                               |      ✅ |      ✅ |      - |
 | AWS::ECS::TaskDefinition                        |      ✅ |      ✅ |      - |
+| AWS::EFS::AccessPoint                          |      ✅ |      ✅ |      - |
 | AWS::EFS::FileSystem                            |      ✅ |      ✅ |      - |
+| AWS::EFS:MountTarget                            |      ✅ |      ✅ |      - |
 | AWS::EKS::Cluster                               |      ✅ |      ✅ |      - |
 | AWS::EKS::FargateProfile                        |      ✅ |      ✅ |      - |
 | AWS::EKS::Nodegroup                             |      ✅ |      ✅ |      - |
@@ -396,7 +399,14 @@ When utilizing the Community image, any resources within the stack that are not 
 | AWS::Redshift::ClusterSecurityGroup             |      ✅ |      ✅ |      - |
 | AWS::Redshift::ClusterSubnetGroup               |      ✅ |      ✅ |      - |
 | AWS::Route53::HostedZone                        |      ✅ |      ✅ |      - |
+| AWS::SageMaker::Endpoint                        |      ✅ |      ✅ |      - |
+| AWS::SageMaker::EndpointConfig                  |      ✅ |      ✅ |      - |
+| AWS::SageMaker::Model                           |      ✅ |      ✅ |      - |
 | AWS::SES::ReceiptRule                           |      ✅ |      ✅ |      - |
 | AWS::SES::ReceiptRuleSet                        |      ✅ |      ✅ |      - |
 | AWS::SES::Template                              |      ✅ |      ✅ |      ✅ |
 | AWS::SecretsManager::SecretTargetAttachment     |      ✅ |      ✅ |      - |
+| AWS::WAFv2::IPSet                               |      ✅ |      ✅ |      - |
+| AWS::WAFv2::LoggingConfiguration                |     ✅ |      ✅ |      - |
+| AWS::WAFv2::WebACL                              |      ✅ |      ✅ |      - |
+| AWS::WAFv2::WebACLAssociation                   |      ✅ |      ✅ |      - |

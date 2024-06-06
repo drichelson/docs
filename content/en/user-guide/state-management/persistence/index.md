@@ -17,7 +17,7 @@ LocalStack's Persistence mechanism enables the saving and restoration of the ent
 
 To start snapshot-based persistence, launch LocalStack with the configuration option `PERSISTENCE=1`. This setting instructs LocalStack to save all AWS resources and their respective application states into the LocalStack Volume Directory. Upon restarting LocalStack, you'll be able to resume your activities exactly where you left off.
 
-{{< tabpane >}}
+{{< tabpane lang="bash" >}}
 {{< tab header="LocalStack CLI" lang="bash" >}}
 LOCALSTACK_AUTH_TOKEN=... PERSISTENCE=1 localstack start
 {{< /tab >}}
@@ -40,11 +40,11 @@ docker run \
 {{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Note">}}
+{{< callout >}}
 Snapshots may not be compatible across different versions of LocalStack.
 It is possible that snapshots from older versions can be restored, but there are no guarantees to whether LocalStack will start into a consistent state.
 We are actively working on a solution for this problem.
-{{< /alert >}}
+{{< /callout >}}
 
 ### Save strategies
 
@@ -101,47 +101,9 @@ $ curl -X POST localhost:4566/_localstack/state/save
 
 Although we are working to support both snapshot-based persistence and Cloud pods for all AWS services,
 there are some common issues, known limitations, and also services that are not well tested for persistence support.
+An overview is available [here]({{<ref "user-guide/state-management/support">}}).
+
 Please help us improve persistence support by reporting bugs on our [GitHub issue tracker](https://github.com/localstack/localstack/issues/new/choose).
-
-Here is a list of currently supported services and known issues.
-Persistence for services that are _not_ listed here _may_ work correctly, but are untested and unsupported.
-
-
-### Supported & tested
-
-* ACM
-* Amplify
-* API Gateway
-* AppConfig
-* AppSync
-* CloudWatch
-* Cognito
-* DynamoDB
-* IAM
-* Kinesis
-* KMS
-* Lambda
-* RDS: Postgres, MariaDB, MySQL
-* Route53
-* S3
-* SecretsManager
-* SNS
-* SQS
-* SSM
-* Stepfunctions
-
-### Known limitations
-
-* **ElastiCache**: Redis instances are not restored
-* **MSK**: Kafka brokers are not restored
-* **EC2**: works for most resources, but emulated VM data is not restored
-* **Firehose**: Kinesis delivery streams are not restored
-* **RDS**: MSSQL database is not restored
-* **Neptune**: database is not restored
-* **DocDB**: database is not restored
-
-### Not Implemented
-* MQ
 
 ## Technical Details
 

@@ -59,10 +59,10 @@ $ python3 -m pip install --upgrade localstack
 {{< / command >}}
 {{% /markdown %}}
 
-{{< alert title="Important" color="danger" >}}
+{{< callout "warning" >}}
 Do not use `sudo` or the `root` user - LocalStack should be installed and started entirely under a local non-root user.
 If you have problems with permissions in MacOS X Sierra, install with `python3 -m pip install --user localstack`.
-{{< /alert >}}
+{{< /callout >}}
 </details>
 {{< /tab >}}
 
@@ -118,9 +118,9 @@ Afterwards you can install the LocalStack CLI in your Python environment with:
 $ python3 -m pip install --upgrade localstack
 {{< / command >}}
 {{% /markdown %}}
-{{< alert title="Important" color="danger" >}}
+{{< callout "warning" >}}
 Do not use `sudo` or the `root` user - LocalStack should be installed and started entirely under a local non-root user.
-{{< /alert >}}
+{{< /callout >}}
 </details>
 {{< /tab >}}
 
@@ -145,9 +145,9 @@ $ python3 -m pip install --upgrade localstack
 {{< / command >}}
 {{% /markdown %}}
 
-{{< alert title="Important" color="danger" >}}
+{{< callout "warning" >}}
 Do not use `sudo` or the `root` user - LocalStack should be installed and started entirely under a local non-root user.
-{{< /alert >}}
+{{< /callout >}}
 </details>
 {{< /tab >}}
 
@@ -166,7 +166,7 @@ $ python3 -m pip install --upgrade localstack
 {{< / command >}}
 {{% /markdown %}}
 
-{{< alert title="Note" >}}
+{{< callout "note" >}}
 To download a specific version of LocalStack, check out our [release page](https://github.com/localstack/localstack) and download it in the following manner:
 {{< command >}}
 $ python3 -m pip install localstack==<version>
@@ -174,11 +174,11 @@ $ python3 -m pip install localstack==<version>
 {{% markdown %}}
 Here `<version>` depicts the particular LocalStack version that you would like to download and use.
 {{% /markdown %}}
-{{< /alert >}}
+{{< /callout >}}
 
-{{< alert title="Important" color="danger" >}}
+{{< callout "warning" >}}
 Do not use `sudo` or the `root` user - LocalStack should be installed and started entirely under a local non-root user.
-{{< /alert >}}
+{{< /callout >}}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -238,7 +238,7 @@ If you want to manually manage your Docker container, it's usually a good idea t
 You can start LocalStack with [Docker Compose](https://docs.docker.com/compose/) by configuring a `docker-compose.yml` file.
 Currently, `docker-compose` version 1.9.0+ is supported.
 
-{{< tabpane >}}
+{{< tabpane lang="yml" >}}
 {{< tab header="Community" lang="yml" >}}
 version: "3.8"
 
@@ -285,7 +285,7 @@ Start the container by running the following command:
 $ docker-compose up
 {{< / command >}}
 
-{{< alert title="Notes" >}}
+{{< callout "note" >}}
 - This command pulls the current nightly build from the `master` branch (if you don't have the image locally) and **not** the latest supported version.
   If you want to use a specific version, set the appropriate localstack image tag at `services.localstack.image` in the `docker-compose.yml` file (for example `localstack/localstack:<version>`).
 
@@ -294,7 +294,8 @@ $ docker-compose up
 
 - This command reuses the image if it's already on your machine, i.e. it will **not** pull the latest image automatically from Docker Hub.
 
-- Mounting the Docker socket `/var/run/docker.sock` as a volume is required for the Lambda service. Check out the [Lambda providers]({{< ref "user-guide/aws/lambda" >}}) documentation for more information.
+- Mounting the Docker socket `/var/run/docker.sock` as a volume is required for some services that use Docker to provide the emulation, such as AWS Lambda.
+  Check out the [Lambda providers]({{< ref "user-guide/aws/lambda" >}}) documentation for more information.
 
 - To facilitate interoperability, configuration variables can be prefixed with `LOCALSTACK_` in docker.
   For instance, setting `LOCALSTACK_PERSISTENCE=1` is equivalent to `PERSISTENCE=1`.
@@ -303,7 +304,7 @@ $ docker-compose up
   Please consider removing it, if this functionality is needed.
 
 - To configure an auth token, refer to the [auth token]({{< ref "auth-token" >}}) documentation.
-{{< /alert >}}
+{{< /callout >}}
 
 Please note that there are a few pitfalls when configuring your stack manually via docker-compose (e.g., required container name, Docker network, volume mounts, and environment variables).
 We recommend using the LocalStack CLI to validate your configuration, which will print warning messages in case it detects any potential misconfigurations:
@@ -328,24 +329,27 @@ If it does not report an error (but shows information on your Docker system), yo
 
 You can start the Docker container simply by executing the following `docker run` command:
 
-{{< tabpane >}}
+{{< tabpane lang="shell" >}}
 {{< tab header="Community" lang="shell" >}}
 docker run \
   --rm -it \
-  -p 4566:4566 \
-  -p 4510-4559:4510-4559 \
+  -p 127.0.0.1:4566:4566 \
+  -p 127.0.0.1:4510-4559:4510-4559 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   localstack/localstack
 {{< /tab >}}
 {{< tab header="Pro" lang="shell" >}}
 docker run \
   --rm -it \
-  -p 4566:4566 \
-  -p 4510-4559:4510-4559 \
+  -p 127.0.0.1:4566:4566 \
+  -p 127.0.0.1:4510-4559:4510-4559 \
+  -p 127.0.0.1:443:443 \
   -e LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN:?} \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   localstack/localstack-pro{{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Notes" >}}
+{{< callout "note" >}}
 - This command pulls the current nightly build from the `master` branch (if you don't have the image locally) and **not** the latest supported version.
   If you want to use a specific version of LocalStack, use the appropriate tag: `docker run --rm -it -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack:<tag>`. Check-out the [LocalStack releases](https://github.com/localstack/localstack/releases) to know more about specific LocalStack versions.
 
@@ -354,15 +358,17 @@ docker run \
 
 - This command reuses the image if it's already on your machine, i.e. it will **not** pull the latest image automatically from Docker Hub.
 
-- This command does not bind all ports that are potentially used by LocalStack, nor does it mount any volumes.
-  When using Docker to manually start LocalStack, you will have to configure the container on your own (see [docker-compose-pro.yml](https://github.com/localstack/localstack/blob/master/docker-compose-pro.yml) and [Configuration]({{< ref "configuration" >}})).
+- Mounting the Docker socket `/var/run/docker.sock` as a volume is required for some services that use Docker to provide the emulation, such as AWS Lambda.
+  Check out the [Lambda providers]({{< ref "user-guide/aws/lambda" >}}) documentation for more information.
+
+- When using Docker to manually start LocalStack, you will have to configure the container on your own (see [docker-compose-pro.yml](https://github.com/localstack/localstack/blob/master/docker-compose-pro.yml) and [Configuration]({{< ref "configuration" >}})).
   This could be seen as the "expert mode" of starting LocalStack.
   If you are looking for a simpler method of starting LocalStack, please use the [LocalStack CLI]({{< ref "#localstack-cli" >}}).
 
 - To facilitate interoperability, configuration variables can be prefixed with `LOCALSTACK_` in docker. For instance, setting `LOCALSTACK_PERSISTENCE=1` is equivalent to `PERSISTENCE=1`.
 
 - To configure an auth token, refer to the [auth token]({{< ref "auth-token" >}}) documentation.
-{{< /alert >}}
+{{< /callout >}}
 
 ### Helm
 
@@ -408,7 +414,7 @@ If you have installed the CLI with Brew or directly as a binary, please simply p
 
 ## Troubleshooting
 
-- The LocalStack CLI installation is successful, but I cannot execute `localstack` on my terminal.
+- **The LocalStack CLI installation is successful, but I cannot execute `localstack` on my terminal.**
 
   If you can successfully install LocalStack using `pip` but you cannot use it in your terminal, you most likely haven't set up your operating system's / terminal's `PATH` variable (in order to tell them where to find programs installed via `pip`).
   - If you are using Windows, you can enable the `PATH` configuration when installing Python, [as described in the official docs of Python](https://docs.python.org/3/using/windows.html#finding-the-python-executable).
@@ -419,7 +425,19 @@ If you have installed the CLI with Brew or directly as a binary, please simply p
   $ python3 -m localstack.cli.main
   {{< / command >}}
 
-- How should I access the LocalStack logs on my local machine?
+- **The `localstack` CLI is not starting the LocalStack container**
+
+  If you are using the `localstack` CLI to start LocalStack, but the container is not starting, please check the following:
+  - Uncheck the **Use kernel networking for UDP** option in Docker Desktop (**Settings** → **Resources** → **Network**) or follow the steps in our [documentation](https://docs.localstack.cloud/user-guide/tools/dns-server/#system-dns-configuration) to disable it.
+  - Start LocalStack with a specific DNS address:
+    {{< command >}}
+    $ DNS_ADDRESS=0 localstack start
+    {{< / command >}}
+  - Remove port 53 as indicated in our [standard `docker-compose.yml`  file](https://github.com/localstack/localstack/blob/master/docker-compose-pro.yml).
+
+<br><br>
+
+- **How should I access the LocalStack logs on my local machine?**
 
   You can now avail logging output and error reporting using LocalStack logs. To access the logs, run the following command:
 
@@ -438,7 +456,7 @@ If you have installed the CLI with Brew or directly as a binary, please simply p
   2022-09-12T11:01:55.799  INFO --- [   asgi_gw_0] localstack.request.http    : GET / => 200
   ```
 
-- How should I share the LocalStack logs to discover issues?
+- **How should I share the LocalStack logs to discover issues?**
 
   You can now share the LocalStack logs with us to help us discover issues.
   To share the logs, run our diagnostic endpoint:
@@ -450,7 +468,7 @@ If you have installed the CLI with Brew or directly as a binary, please simply p
   Ensure that the diagnostic endpoint is run after you have tried reproducing the affected task.
   After running the task, run the diagnostic endpoint and share the archive file with your team members or LocalStack Support.
 
-- My application cannot reach LocalStack over the network
+- **My application cannot reach LocalStack over the network**
 
   We have [extensive network troubleshooting documentation available]({{< ref "references/network-troubleshooting" >}}).
   If this does not solve your problem then please reach out for [help and support]({{< ref "help-and-support" >}}).

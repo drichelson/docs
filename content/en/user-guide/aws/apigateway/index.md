@@ -1,9 +1,10 @@
 ---
 title: "API Gateway"
 linkTitle: "API Gateway"
-description: >
-  Get started with API Gateway on LocalStack
+description: Get started with API Gateway on LocalStack
 tags: ["Pro image"]
+persistence: supported
+
 ---
 
 ## Introduction
@@ -336,9 +337,9 @@ $ awslocal apigatewayv2 create-api \
 }
 {{< / command >}}
 
-{{< alert title="Note">}}
+{{< callout >}}
 Setting the API Gateway ID via `_custom_id_` works only on the creation of the resource, but not on update in LocalStack. Ensure that you set the `_custom_id_` tag on creation of the resource.
-{{< /alert >}}
+{{< /callout >}}
 
 ## Custom Domain Names with API Gateway
 

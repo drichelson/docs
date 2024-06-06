@@ -15,9 +15,9 @@ The Resource Browser provide an experience similar to the AWS Management Console
 
 The LocalStack Web Application connects to your LocalStack container and retrieves the information about your local resources directly via `localhost` without using the internet. None of the information is sent to the internet, or stored on any external servers maintained by LocalStack.
 
-{{<alert title="Switching AWS regions">}}
+{{< callout "tip" >}}
 An AWS region dropdown menu in the dashboard is located on the top right of the page. You can select your desired region to ensure that you can view your resources. If you cannot view resources that you have recently created, you should verify that you are checking the resources in the correct region.
-{{< /alert >}}
+{{< /callout >}}
 
 ## Supported services
 
@@ -55,7 +55,6 @@ The Resource Browser supports the following AWS services:
 |                              | [AWS Secrets Manager](https://app.localstack.cloud/inst/default/resources/secretsmanager)                | 
 | **Storage**                  | [Amazon S3](https://app.localstack.cloud/inst/default/resources/s3)                                      | 
 |                              | [AWS Backup](https://app.localstack.cloud/inst/default/resources/backup/plans)                                |
-|                               | [Amazon Cost Explorer](https://app.localstack.cloud/inst/default/resources/ce/costcategorydefinitions)                                | 
 | **Machine Learning**         | [Amazon SageMaker](https://app.localstack.cloud/inst/default/resources/sagemaker/models)                        | 
 |                              | [Amazon Transcribe](https://app.localstack.cloud/inst/default/resources/transcribe/transcriptionjobs)                      | 
 | **Database**                 | [Amazon DynamoDB](https://app.localstack.cloud/inst/default/resources/dynamodb)                          | 
@@ -72,6 +71,7 @@ The Resource Browser supports the following AWS services:
 |                              | [Amazon Route 53](https://app.localstack.cloud/inst/default/resources/route53)                            | 
 |                              | [Amazon CloudFront](https://app.localstack.cloud/inst/default/resources/cloudfront/distributions)                        | 
 |                              | [Amazon OpenSearch Service](https://app.localstack.cloud/inst/default/resources/opensearch/domains) | 
+| **Cloud Financial Management** | [AWS Cost Explorer](https://app.localstack.cloud/inst/default/resources/ce/costcategorydefinitions)                              |
 
 ## Troubleshooting
 

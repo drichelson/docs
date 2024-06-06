@@ -71,9 +71,9 @@ You should see the following output:
 }
 ```
 
-{{<alert title="Note">}}
+{{< callout >}}
 While an unmanaged compute environment has been specified, there is no need to provision any compute resources for this setup to function. Your tasks will run independently in new Docker containers, alongside the LocalStack container.
-{{</alert>}}
+{{< /callout >}}
 
 ### Create a job queue
 
@@ -166,6 +166,6 @@ You should see the following output:
 }
 ```
 
-## Limitations 
+## Current Limitations 
 
 As mentioned in the example above, the creation of a compute environment does not entail the provisioning of EC2 or Fargate instances. Rather, it executes Batch jobs on the local Docker daemon, operating alongside LocalStack.

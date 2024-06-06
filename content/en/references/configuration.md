@@ -15,6 +15,9 @@ These options can be passed to LocalStack as environment variables like so:
 $ DEBUG=1 localstack start
 {{< / command >}}
 
+To facilitate interoperability, configuration variables can be prefixed with `LOCALSTACK_` in docker.
+For instance, setting `LOCALSTACK_PERSISTENCE=1` is equivalent to `PERSISTENCE=1`.
+
 You can also use [Profiles](#profiles).
 
 Configurations marked as **Deprecated** will be removed in the next major version. You can find previously removed configuration variables under [Legacy](#legacy).
@@ -30,7 +33,7 @@ Options that affect the core LocalStack system.
 | `GATEWAY_LISTEN`| `0.0.0.0:4566` (default in Docker mode) `127.0.0.1:4566` (default in host mode) | Configures the bind addresses of LocalStack. It has the form `<ip address>:<port>(,<ip address>:<port>)*`. LocalStack Pro adds port `443`. |
 | `LOCALSTACK_HOST`| `localhost.localstack.cloud:4566` (default) | This is interpolated into URLs and addresses that are returned by LocalStack. It has the form `<hostname>:<port>`. |
 | `USE_SSL` | `0` (default) | Whether to return URLs using HTTP (`0`) or HTTPS (`1`). Changed with 3.0.0. In earlier versions this was toggling SSL support on or off. |
-| `PERSISTENCE` | `0` (default) | Enable persistence. See [Persistence Mechanism]({{< ref "persistence" >}}) and [Filesystem Layout]({{< ref "filesystem" >}}). |
+| `PERSISTENCE` | `0` (default) | Enable persistence. See [Persistence Mechanism]({{< ref "user-guide/state-management/persistence" >}}) and [Filesystem Layout]({{< ref "filesystem" >}}). |
 | `MAIN_CONTAINER_NAME` | `localstack-main` (default) | Specify the main docker container name |
 | `LS_LOG` | `trace`, `trace-internal`, `debug`, `info`, `warn`, `error`, `warning`| Specify the log level. Currently overrides the `DEBUG` configuration. `trace` for detailed request/response, `trace-internal` for internal calls, too. |
 | `EXTERNAL_SERVICE_PORTS_START` | `4510` (default) | Start of the [External Service Port Range]({{< ref "external-ports" >}}) (inclusive). |
@@ -162,10 +165,10 @@ This section covers configuration options that are specific to certain AWS servi
 
 ### Elasticsearch
 
-{{< alert title="Note">}}
+{{< callout >}}
 The OpenSearch configuration variables are used to manage both OpenSearch and ElasticSearch clusters.
 See [here](#opensearch).
-{{< /alert >}}
+{{< /callout >}}
 
 ### IAM
 | Variable | Example Values | Description |
@@ -184,17 +187,18 @@ See [here](#opensearch).
 
 ### Lambda
 
-{{< alert title="Note" >}}
+{{< callout >}}
 The legacy [Lambda]({{< ref "user-guide/aws/lambda" >}}) implementation has been removed since LocalStack&nbsp;3.0 (Docker `latest` since 2023-11-09).
 Please consult the [migration guide]({{< ref "user-guide/aws/lambda#migrating-to-lambda-v2" >}}) for more information.
-{{</alert>}}
+{{< /callout >}}
 
 | Variable| Example Values | Description |
 | - | - | - |
 | `BUCKET_MARKER_LOCAL` | `hot-reload` (default) | Magic S3 bucket name for [Hot Reloading]({{< ref "user-guide/lambda-tools/hot-reloading" >}}). The S3Key points to the source code on the local file system. |
 | `HOSTNAME_FROM_LAMBDA` | `localstack` | Endpoint host under which APIs are accessible from Lambda containers (optional). This can be useful in docker-compose stacks to use the local container hostname if neither IP address nor container name of the main container are available (e.g., in CI). Often used in combination with `LAMBDA_DOCKER_NETWORK`.|
 | `LAMBDA_DISABLE_AWS_ENDPOINT_URL` | `0` (default) \| `1` | Whether to disable injecting the environment variable `AWS_ENDPOINT_URL`, which automatically configures [supported AWS SDKs](https://docs.aws.amazon.com/sdkref/latest/guide/feature-ss-endpoints.html). |
-| `LAMBDA_DOCKER_FLAGS` | `-e KEY=VALUE`, `-v host:container`, `-p host:container`, `--add-host domain:ip` | Additional flags passed to Docker `run`\|`create` commands. Supports environment variables, ports, volume mounts, extra hosts, networks, DNS servers, labels, ulimits, user, platform, and privileged mode. |
+| `LAMBDA_DOCKER_DNS` | `""` (default) | Optional custom DNS server for the container running your Lambda function. Overwrites the default LocalStack [DNS Server]({{< ref "dns-server" >}}). Hence, resolving `localhost.localstack.cloud` requires additional configuration. |
+| `LAMBDA_DOCKER_FLAGS` | `-e KEY=VALUE`, `-v host:container`, `-p host:container`, `--add-host domain:ip` | Additional flags passed to Docker `run`\|`create` commands. Supports environment variables (also with `--env-file`, but the file has to be mounted into the LocalStack container), ports, volume mounts, extra hosts, networks, DNS servers, labels, ulimits, user, platform, and privileged mode. |
 | `LAMBDA_DOCKER_NETWORK` | `bridge` (Docker default) | [Docker network driver](https://docs.docker.com/network/) for the Lambda and ECS containers. Needs to be set to the network the LocalStack container is connected to. Limitation: `host` mode currently not supported. |
 | `LAMBDA_DOWNLOAD_AWS_LAYERS` | `1` (default, pro) | Whether to download public Lambda layers from AWS through a LocalStack proxy when creating or updating functions. |
 | `LAMBDA_IGNORE_ARCHITECTURE` | `0` (default) | Whether to ignore the AWS architectures (x86_64 or arm64) configured for the lambda function. Set to `1` to run cross-platform compatible lambda functions natively (i.e., Docker selects architecture). |
@@ -229,6 +233,8 @@ Please consult the [migration guide]({{< ref "user-guide/aws/lambda#migrating-to
 | Variable | Example Values | Description |
 | - | - | - |
 | `NEPTUNE_DB_TYPE` | `neo4j`\|`tinkerpop` (default) | Starts Neptune DB as traditional netpune with Tinkerpop/Gremlin (default) or in Neo4J mode. |
+| `NEPTUNE_ENABLE_TRANSACTION` | `1`\|`0` (default) | Enables Gremlin transaction. This is an experimental feature, [see notes]({{< ref "neptune#gremlin-transactions" >}}) |
+| `NEPTUNE_GREMLIN_DEBUG` | `1`\|`0` (default) | Enable Gremlin logs  |
 | `NEPTUNE_USE_SSL` | `1`\|`0` (default) | Whether to start the Neptune server with SSL configuration, which will enable wss protocol. This setting is only valid for Tinkerpop/Gremlin. By default SSL is not enabled. |
 
 ### OpenSearch
@@ -279,9 +285,9 @@ Please consult the [migration guide]({{< ref "user-guide/aws/lambda#migrating-to
 
 ## Security
 
-{{< alert title="Warning" color="warning" >}}
+{{< callout "warning" >}}
 Please be aware that the following options may have severe security implications.
-{{</alert>}}
+{{< /callout >}}
 
 | Variable| Example Values | Description |
 | - | - | - |
@@ -308,13 +314,13 @@ Please check with your SMTP email service provider for the following settings.
 
 ## Persistence
 
-To learn more about these configuration options, see [Persistence]({{< ref "persistence" >}}).
+To learn more about these configuration options, see [Persistence]({{< ref "user-guide/state-management/persistence" >}}).
 
 | Variable | Valid options | Description |
 | - | - | - |
 | `SNAPSHOT_SAVE_STRATEGY` | `ON_SHUTDOWN`\|`ON_REQUEST`\|`SCHEDULED`\|`MANUAL` | Strategy that governs when LocalStack should make state snapshots |
 | `SNAPSHOT_LOAD_STRATEGY` | `ON_STARTUP`\|`ON_REQUEST`\|`MANUAL` | Strategy that governs when LocalStack restores state snapshots |
-| `SNAPSHOT_FLUSH_INTERVAL` | 15 (default) | The interval (in seconds) between persistence snapshots. It only applies to a `SCHEDULED` save strategy (see [Persistence Mechanism]({{< ref "persistence" >}}))|
+| `SNAPSHOT_FLUSH_INTERVAL` | 15 (default) | The interval (in seconds) between persistence snapshots. It only applies to a `SCHEDULED` save strategy (see [Persistence Mechanism]({{< ref "user-guide/state-management/persistence" >}}))|
 | `AUTO_LOAD_POD` |  | Comma-separated list of Cloud Pods to be automatically loaded at startup time. This feature is disabled when snapshot persistence is set via the `PERSISTENCE` variable. |
 | `POD_LOAD_CLI_TIMEOUT` | 60 (default) | Timeout in seconds to wait before returning from load operations on the Cloud Pods CLI |
 
@@ -474,8 +480,8 @@ To display the config environment variables, you can use the following command:
 $ python -m localstack.cli.main --profile=dev config show
 {{< / command >}}
 
-{{< alert title="Note" >}}
+{{< callout >}}
 The `CONFIG_PROFILE` is a CLI feature and cannot be used with a Docker/Docker Compose setup.
 You can look at [alternative means of setting environment variables](https://docs.docker.com/compose/environment-variables/set-environment-variables/) for your Docker Compose setups.
 For Docker setups, we recommend passing the environment variables directly to the `docker run` command.
-{{< /alert >}}
+{{< /callout >}}

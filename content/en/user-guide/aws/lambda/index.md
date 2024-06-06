@@ -1,13 +1,14 @@
 ---
 title: "Lambda"
 linkTitle: "Lambda"
-description: >
-  Get started with Lambda on LocalStack
+description: Get started with Lambda on LocalStack
 aliases:
-  - /references/lambda-executors/
-  - /references/lambda-provider-v2/
-  - /references/lambda-asf-provider/
-  - /references/lambda-v2-provider/
+- /references/lambda-executors/
+- /references/lambda-provider-v2/
+- /references/lambda-asf-provider/
+- /references/lambda-v2-provider/
+persistence: supported with limitations
+
 ---
 
 ## Introduction
@@ -50,15 +51,15 @@ $ awslocal lambda create-function \
     --role arn:aws:iam::000000000000:role/lambda-role
 {{< / command >}}
 
-{{< alert title="Note" >}}
+{{< callout >}}
 In the old Lambda provider, you could create a function with any arbitrary string as the role, such as `r1`. However, the new provider requires the role ARN to be in the format `arn:aws:iam::000000000000:role/lambda-role` and validates it using an appropriate regex. However, it currently does not check whether the role exists.
-{{< /alert >}}
+{{< /callout >}}
 
 ### Invoke the Function
 
 To invoke the Lambda function, you can use the [`Invoke` API](https://docs.aws.amazon.com/lambda/latest/dg/API_Invoke.html). Run the following command to invoke the function:
 
-{{< tabpane text=true persistLang=false >}}
+{{< tabpane text=true persist=false >}}
   {{% tab header="AWS CLI v1" lang="shell" %}}
   {{< command >}}
   $ awslocal lambda invoke --function-name localstack-lambda-url-example \
@@ -76,9 +77,9 @@ To invoke the Lambda function, you can use the [`Invoke` API](https://docs.aws.a
 
 ### Create a Function URL
 
-{{< alert title="Note" >}}
+{{< callout >}}
 [Response streaming](https://docs.aws.amazon.com/lambda/latest/dg/configuration-response-streaming.html) is currently not supported, so it will still return a synchronous/full response instead.
-{{< /alert >}}
+{{< /callout >}}
 
 With the Function URL property, there is now a new way to call a Lambda Function via HTTP API call using the [`CreateFunctionURLConfig` API](https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunctionUrlConfig.html). To create a URL for invoking the function, run the following command:
 
@@ -109,10 +110,10 @@ The product of 10 and 10 is 100%
 
 ## Lambda Event Source Mappings
 
-{{<alert title="Information">}}
+{{< callout >}}
 LocalStack now supports a new event rule engine for [Lambda event filtering](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html).
 You can [configure]({{< ref "configuration" >}}) `EVENT_RULE_ENGINE=java` (preview) to use the AWS [event-ruler](https://github.com/aws/event-ruler), which offers better parity.
-{{< /alert >}}
+{{< /callout >}}
 
 [Lambda event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html) allows you to connect Lambda functions to other AWS services. The following event sources are supported in LocalStack:
 
@@ -123,8 +124,7 @@ You can [configure]({{< ref "configuration" >}}) `EVENT_RULE_ENGINE=java` (previ
 
 ## Lambda Layers (Pro)
 
-[Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) lets you include additional code and dependencies in your Lambda functions. LocalStack Pro image allows you to deploy Lambda Layers locally to streamline your development and testing process.
-However, the layers are not applied when invoking a Lambda function.
+[Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) let you include additional code and dependencies in your Lambda functions. The LocalStack Pro image allows you to deploy Lambda Layers locally to streamline your development and testing process. The Community image also allows creating, updating, and deleting Lambda Layers, but they are not applied when invoking a Lambda function.
 
 ### Creating and using a Lambda Layer Locally
 
@@ -210,9 +210,9 @@ The Resource Browser allows you to perform the following actions:
 
 ## Migrating to Lambda v2
 
-{{< alert title="Note" >}}
+{{< callout >}}
 The legacy Lambda implementation has been removed since LocalStack&nbsp;3.0 (Docker `latest` since 2023-11-09).
-{{</alert>}}
+{{</callout >}}
 
 As part of the [LocalStack 2.0 release](https://discuss.localstack.cloud/t/new-lambda-implementation-in-localstack-2-0/258), the Lambda provider has been migrated to `v2` (formerly known as `asf`).
 With the new implementation, the following changes have been introduced:
@@ -266,7 +266,7 @@ In the old Lambda provider, Lambda functions were executed within the LocalStack
 
 If you encounter the following error message, you may be using the local executor mode:
 
-{{< tabpane >}}
+{{< tabpane lang="bash" >}}
 {{< tab header="LocalStack Logs" lang="shell" >}}
 Lambda 'arn:aws:lambda:us-east-1:000000000000:function:my-function:$LATEST' changed to failed. Reason: Docker not available
 ...

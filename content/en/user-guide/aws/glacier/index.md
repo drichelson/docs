@@ -3,6 +3,8 @@ title: "Glacier"
 linkTitle: "Glacier"
 description: Get started with S3 Glacier on LocalStack
 tags: ["Pro image"]
+persistence: supported
+
 ---
 
 ## Introduction
@@ -132,9 +134,10 @@ You can use the `JobId` of the Job to download your archive with the following c
 {{< command >}}
 $ awslocal glacier get-job-output --vault-name sample-vault --account-id - --job-id 25CEOTJ7ZUR5Q7YY0B1O55AE4C3L1502EOHWMNY10IIYEBWEQB73D23S8BVYO9RTRTPLRK2LJLUCCRM52GDV87C9A4JW my-archive.jpg
 {{< /command >}}
-{{< alert title="Note" >}}
+
+{{< callout >}}
 Please not that currently, this operation is only mocked, and will create an empty file named `my-archive.jpg`, not containing the contents of your archive. 
-{{< /alert >}}
+{{< /callout >}}
 
 ### Retrieve the inventory information
 

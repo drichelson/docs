@@ -10,11 +10,11 @@ This page contains easily customisable snippets to show you how to manage LocalS
 ## Snippets
 
 ### Start up Localstack
-{{< alert title="Note">}}
+{{< callout "tip" >}}
 While working with a Docker-in-Docker (`dind`) setup, the Docker runner requires `privileged` mode.
 You must always use `privileged = true` in your GitLab CI's `config.toml` file while setting up LocalStack in GitLab CI runners.
 For more information, see [GitLab CI Docker-in-Docker](https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-docker-in-docker-executor) documentation.
-{{< /alert >}}
+{{< /callout >}}
 
 <details>
 <summary>For LocalStack versions before 3.0.0</summary>
@@ -200,7 +200,7 @@ test-job:
 
 Find out more about ephemeral instances [here](/user-guide/cloud-sandbox/).
 
-## Limitations and Known Issues
+## Current Limitations
 
 - Localstack must be able to reach a docker socket to provision containers for certain services, ie Lambda, EKS, ECS...etc
 - the runner must be able to resolve the Localstack domain (by default _localhost.localstack.cloud_), see the sample pipelines for a possible solution

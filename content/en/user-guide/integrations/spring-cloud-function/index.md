@@ -12,9 +12,9 @@ description: >
 In this guide, you will learn how to use LocalStack to test
 your serverless applications powered by Spring Cloud Function framework.
 
-{{< alert title="Warning" color="warning" >}}
+{{< callout >}}
 Some features and services described in this document may not work properly on aarch64, including Apple's M1 silicon.
-{{< /alert >}}
+{{< /callout >}}
 
 ## Covered Topics
 
@@ -43,7 +43,7 @@ any other JVM setup.
 * [Testing, Debugging and Hot Reloading](#testing-debugging-and-hot-reloading)
 * [Useful links](#useful-links)
 
-### Limitations
+### Current Limitations
 
 This document demonstrates the usage of the Spring Cloud Function framework
 together with LocalStack.

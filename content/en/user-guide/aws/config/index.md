@@ -1,8 +1,9 @@
 ---
 title: "Config"
 linkTitle: "Config"
-description: >
-  Get started with Config on LocalStack
+description: Get started with Config on LocalStack
+persistence: supported
+
 ---
 
 ## Introduction
@@ -97,7 +98,7 @@ $ awslocal configservice describe-delivery-channels
 $ awslocal configservice describe-configuration-recorder-status
 {{< /command >}}
 
-## Limitations
+## Current Limitations
 
 AWS Config is currently mocked in LocalStack.
 You can create, read, update, and delete AWS Config resources (like delivery channels or configuration recorders),

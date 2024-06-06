@@ -14,9 +14,9 @@ This documentation provides step-by-step guidance on how to access LocalStack se
 
 Suppose you have LocalStack installed on your machine and want to access it using the AWS CLI. To connect, you must expose port 4566 from your LocalStack instance and connect to `localhost` or a domain name that points to `localhost`. While the LocalStack CLI does this automatically, when running the Docker container directly or with docker compose, you must configure it manually. Check out the [getting started documentation]({{< ref "getting-started/installation" >}}) for more information.
 
-{{<alert title="Note">}}
+{{< callout "tip" >}}
 If you bind a domain name to `localhost`, ensure that you are not subject to [DNS rebind protection]({{< ref "dns-server#dns-rebind-protection" >}}).
-{{</alert>}}
+{{</callout>}}
 
 You can also use the `GATEWAY_LISTEN` [configuration variable]({{< ref "references/configuration" >}}) to change the exposed port if necessary.
 
@@ -35,7 +35,7 @@ To enable access to the LocalStack instance, it's advisable to start LocalStack 
 This allows the code running inside the container to access the LocalStack instance using its hostname.
 For example:
 
-{{<tabpane>}}
+{{<tabpane lang="bash">}}
 {{<tab header="CLI" lang="bash">}}
 # create the network
 docker network create my-network
@@ -87,7 +87,7 @@ To configure your application container:
 * either determine your LocalStack container IP, or configure your LocalStack container to have a fixed known IP address;
 * set the DNS server of your application container to the IP address of the LocalStack container.
 
-{{% tabpane %}}
+{{% tabpane lang="bash" %}}
 {{< tab header="CLI" lang="bash" >}}
 # start localstack
 localstack start -d --network ls
@@ -162,7 +162,7 @@ To facilitate access to LocalStack from within the container, it's recommended t
 Doing so enables the containerized code to connect to the LocalStack instance using its hostname.
 For instance:
 
-{{<tabpane>}}
+{{<tabpane lang="bash">}}
 {{<tab header="CLI" lang="bash">}}
 # create the network
 docker network create my-network
@@ -214,7 +214,7 @@ Please update your LocalStack container and see the [instructions]({{< ref "#fro
 
 LocalStack must listen to the address of the host, or `0.0.0.0`.
 
-{{<tabpane>}}
+{{<tabpane lang="bash">}}
 {{<tab header="CLI" lang="bash">}}
 GATEWAY_LISTEN="0.0.0.0" localstack start
 {{</tab>}}

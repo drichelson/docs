@@ -17,13 +17,9 @@ Any cluster created with the Elasticsearch Service will show up in the OpenSearc
 
 You can go ahead and use [awslocal]({{< ref "aws-cli.md#localstack-aws-cli-awslocal" >}}) to create a new elasticsearch domain via the `aws es create-elasticsearch-domain` command.
 
-{{< alert title="Note">}}
+{{< callout >}}
 Unless you use the Elasticsearch default version, the first time you create a cluster with a specific version, the Elasticsearch binary is downloaded, which may take a while to download.
-{{< /alert >}}
-
-{{< alert title="Note">}}
-The default Elasticsearch version used is 7.10.0. This is a slight deviation from the default version used in AWS (Elasticsearch 1.5), which is not supported in LocalStack.
-{{< /alert >}}
+{{< /callout >}}
 
 {{< command >}}
 $ awslocal es create-elasticsearch-domain --domain-name my-domain
@@ -321,3 +317,7 @@ $ curl -X PUT mylogs-2.us-east-1.es.localhost.localstack.cloud:4566/my-index
 * By default, AWS only sets the `Endpoint` attribute of the cluster status once the cluster is up.
   LocalStack will return the endpoint immediately, but keep `Processing = "true"` until the cluster has been started.
 * The `CustomEndpointOptions` allows arbitrary endpoint URLs, which is not allowed in AWS
+
+## Current Limitations
+
+The default Elasticsearch version used is 7.10.0. This is a slight deviation from the default version used in AWS (Elasticsearch 1.5), which is not supported in LocalStack.

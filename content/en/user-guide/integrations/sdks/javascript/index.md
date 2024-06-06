@@ -21,7 +21,7 @@ The JavaScript SDK has two major versions, each with their own way of specifying
 
 Here is an example of how to create a Lambda client and an S3 client with the endpoint set to LocalStack.
 
-{{< tabpane >}}
+{{< tabpane lang="javascript" >}}
 {{< tab header="aws-sdk-js" lang="javascript" >}}
 
 const AWS = require('aws-sdk');
@@ -115,9 +115,9 @@ s3.send(new ListBucketsCommand({}))
 {{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Note">}}
+{{< callout >}}
 In case of issues resolving S3 DNS record, we can fallback to `http://localhost:4566` in combination with the provider setting `forcePathStyle: true` (see the specific way of setting this parameter for each SDK above). The S3 service endpoint is slightly different from the other service endpoints, because AWS is deprecating path-style based access for hosting buckets. See [S3 documentation]({{< ref "user-guide/aws/s3" >}}) about endpoints.
-{{< /alert >}}
+{{< /callout >}}
 
 
 ## Resources
